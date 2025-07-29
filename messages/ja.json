@@ -1,0 +1,25 @@
+{
+  "title": "ランダム請求書ジェネレーター",
+  "subtitle": "WindsurfとCursorの請求書テンプレートのランダム請求書データを生成",
+  "invoiceType": "請求書タイプ",
+  "windsurfInvoice": "Windsurf請求書 ($6.90)",
+  "cursorInvoice": "Cursor請求書 ($20.00)",
+  "emailLabel": "受取人メールアドレス",
+  "emailRequired": "*",
+  "emailPlaceholder": "メールアドレスを入力",
+  "generateButton": "新しい請求書を生成",
+  "printButton": "印刷/PDF保存",
+  "noInvoiceTitle": "請求書なし",
+  "noInvoiceDesc": "上にメールアドレスを入力し、\"新しい請求書を生成\"ボタンをクリックしてランダム請求書の作成を開始してください",
+  "featuresTitle": "機能説明",
+  "randomDataTitle": "ランダムデータ生成",
+  "randomDataDesc": "請求書番号、領収書番号、支払方法、請求先情報、請求日を自動生成",
+  "pdfExportTitle": "PDF出力",
+  "pdfExportDesc": "\"印刷/PDF保存\"ボタンをクリックして請求書をPDFファイルとして保存",
+  "templatesTitle": "複数テンプレート",
+  "templatesDesc": "WindsurfとCursorの2種類の請求書テンプレートに対応、オリジナルのスタイルとレイアウトを維持",
+  "errors": {
+    "emailRequired": "メールアドレスを入力してください",
+    "emailInvalid": "有効なメールアドレスを入力してください"
+  }
+}

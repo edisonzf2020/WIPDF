@@ -1,5 +1,7 @@
 # WIPDF
 
+**中文** | [English](README-EN.md) | [日本語](README-JA.md)
+
 支持 Windsurf 和 Cursor Invoice模板的随机Invoice生成Web应用程序，可以生成随机的Invoice数据并支持PDF导出。
 
 ## 功能特性
@@ -10,6 +12,7 @@
 - 📱 **响应式设计**: 适配不同屏幕尺寸的设备
 - ⚡ **快速部署**: 支持一键部署到Vercel
 - 🔄 **类型切换**: 可以在界面上轻松切换不同的Invoice类型
+- 🌐 **国际化支持**: 支持中文、英文、日文三种语言界面
 
 ## 随机生成的数据字段
 
@@ -24,6 +27,7 @@
 - **框架**: Next.js 15 with App Router
 - **语言**: TypeScript
 - **样式**: Tailwind CSS + 自定义CSS
+- **国际化**: next-intl
 - **部署**: Vercel
 - **包管理**: npm
 

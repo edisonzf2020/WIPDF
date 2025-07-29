@@ -1,0 +1,25 @@
+{
+  "title": "随机Invoice生成器",
+  "subtitle": "支持生成 Windsurf 和 Cursor Invoice模板的随机Invoice数据",
+  "invoiceType": "Invoice类型",
+  "windsurfInvoice": "Windsurf Invoice ($6.90)",
+  "cursorInvoice": "Cursor Invoice ($20.00)",
+  "emailLabel": "收票人邮箱地址",
+  "emailRequired": "*",
+  "emailPlaceholder": "请输入邮箱地址",
+  "generateButton": "生成新Invoice",
+  "printButton": "打印/保存PDF",
+  "noInvoiceTitle": "暂无Invoice",
+  "noInvoiceDesc": "请在上方输入邮箱地址，然后点击\"生成新Invoice\"按钮开始创建随机Invoice",
+  "featuresTitle": "功能说明",
+  "randomDataTitle": "随机数据生成",
+  "randomDataDesc": "自动生成Invoice号码、收据号码、支付方式、收票人信息和账单日期",
+  "pdfExportTitle": "PDF导出",
+  "pdfExportDesc": "点击\"打印/保存PDF\"按钮可以将Invoice保存为PDF文件",
+  "templatesTitle": "多种模板",
+  "templatesDesc": "支持 Windsurf 和 Cursor 两种Invoice模板，完全保持原始样式和布局",
+  "errors": {
+    "emailRequired": "请输入邮箱地址",
+    "emailInvalid": "请输入有效的邮箱地址"
+  }
+}

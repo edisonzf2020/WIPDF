@@ -1,0 +1,25 @@
+{
+  "title": "Random Invoice Generator",
+  "subtitle": "Generate random invoice data for Windsurf and Cursor invoice templates",
+  "invoiceType": "Invoice Type",
+  "windsurfInvoice": "Windsurf Invoice ($6.90)",
+  "cursorInvoice": "Cursor Invoice ($20.00)",
+  "emailLabel": "Recipient Email Address",
+  "emailRequired": "*",
+  "emailPlaceholder": "Enter email address",
+  "generateButton": "Generate New Invoice",
+  "printButton": "Print/Save PDF",
+  "noInvoiceTitle": "No Invoice",
+  "noInvoiceDesc": "Please enter an email address above, then click \"Generate New Invoice\" button to start creating a random invoice",
+  "featuresTitle": "Features",
+  "randomDataTitle": "Random Data Generation",
+  "randomDataDesc": "Automatically generates invoice numbers, receipt numbers, payment methods, billing information, and billing dates",
+  "pdfExportTitle": "PDF Export",
+  "pdfExportDesc": "Click \"Print/Save PDF\" button to save the invoice as a PDF file",
+  "templatesTitle": "Multiple Templates",
+  "templatesDesc": "Supports both Windsurf and Cursor invoice templates, maintaining original styles and layouts",
+  "errors": {
+    "emailRequired": "Please enter email address",
+    "emailInvalid": "Please enter a valid email address"
+  }
+}
