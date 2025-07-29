@@ -113,25 +113,39 @@ npm start
 WIPDF/
 ├── src/
 │   ├── app/
-│   │   ├── page.tsx          # Main page
-│   │   ├── layout.tsx        # Layout component
-│   │   └── globals.css       # Global styles
+│   │   ├── [locale]/           # Internationalized routing
+│   │   │   ├── page.tsx        # Multi-language main page
+│   │   │   └── layout.tsx      # Multi-language layout component
+│   │   ├── page.tsx            # Root page redirect
+│   │   ├── layout.tsx          # Root layout component
+│   │   └── globals.css         # Global styles
 │   ├── components/
-│   │   ├── WindsurfInvoice.tsx  # Windsurf invoice component
-│   │   └── CursorInvoice.tsx    # Cursor invoice component
+│   │   ├── WindsurfInvoice.tsx # Windsurf invoice component
+│   │   ├── CursorInvoice.tsx   # Cursor invoice component
+│   │   └── LanguageSwitcher.tsx # Language switcher component
+│   ├── i18n/
+│   │   ├── routing.ts          # Internationalization routing config
+│   │   └── request.ts          # Internationalization request config
 │   ├── types/
-│   │   └── invoice.ts        # Type definitions
+│   │   └── invoice.ts          # TypeScript type definitions
 │   └── utils/
 │       └── invoiceGenerator.ts # Invoice data generator
+├── messages/                   # Internationalization translation files
+│   ├── zh.json                 # Chinese translations
+│   ├── en.json                 # English translations
+│   └── ja.json                 # Japanese translations
 ├── public/
-│   ├── windsurf-logo.png     # Windsurf Logo
-│   └── cursor-logo.png       # Cursor Logo
+│   ├── windsurf-logo.png       # Windsurf Logo
+│   └── cursor-logo.png         # Cursor Logo
+├── middleware.ts               # Next.js middleware
 ├── package.json
-├── next.config.js
+├── next.config.ts
 ├── vercel.json
 ├── tailwind.config.ts
 ├── tsconfig.json
-└── README.md
+├── README.md                   # Chinese documentation
+├── README-EN.md                # English documentation
+└── README-JA.md                # Japanese documentation
 ```
 
 ## Custom Configuration

@@ -115,25 +115,39 @@ npm start
 WIPDF/
 ├── src/
 │   ├── app/
-│   │   ├── page.tsx          # 主页面
-│   │   ├── layout.tsx        # 布局组件
-│   │   └── globals.css       # 全局样式
+│   │   ├── [locale]/           # 国际化路由
+│   │   │   ├── page.tsx        # 多语言主页面
+│   │   │   └── layout.tsx      # 多语言布局组件
+│   │   ├── page.tsx            # 根页面重定向
+│   │   ├── layout.tsx          # 根布局组件
+│   │   └── globals.css         # 全局样式
 │   ├── components/
-│   │   ├── WindsurfInvoice.tsx  # Windsurf发票组件
-│   │   └── CursorInvoice.tsx    # Cursor发票组件
+│   │   ├── WindsurfInvoice.tsx # Windsurf发票组件
+│   │   ├── CursorInvoice.tsx   # Cursor发票组件
+│   │   └── LanguageSwitcher.tsx # 语言切换器组件
+│   ├── i18n/
+│   │   ├── routing.ts          # 国际化路由配置
+│   │   └── request.ts          # 国际化请求配置
 │   ├── types/
-│   │   └── invoice.ts        # 类型定义
+│   │   └── invoice.ts          # TypeScript类型定义
 │   └── utils/
 │       └── invoiceGenerator.ts # Invoice数据生成器
+├── messages/                   # 国际化翻译文件
+│   ├── zh.json                 # 中文翻译
+│   ├── en.json                 # 英文翻译
+│   └── ja.json                 # 日文翻译
 ├── public/
-│   ├── windsurf-logo.png     # Windsurf Logo
-│   └── cursor-logo.png       # Cursor Logo
+│   ├── windsurf-logo.png       # Windsurf Logo
+│   └── cursor-logo.png         # Cursor Logo
+├── middleware.ts               # Next.js 中间件
 ├── package.json
-├── next.config.js
+├── next.config.ts
 ├── vercel.json
 ├── tailwind.config.ts
 ├── tsconfig.json
-└── README.md
+├── README.md                   # 中文文档
+├── README-EN.md                # 英文文档
+└── README-JA.md                # 日文文档
 ```
 
 ## 自定义配置

@@ -111,25 +111,39 @@ npm start
 WIPDF/
 ├── src/
 │   ├── app/
-│   │   ├── page.tsx          # メインページ
-│   │   ├── layout.tsx        # レイアウトコンポーネント
-│   │   └── globals.css       # グローバルスタイル
+│   │   ├── [locale]/           # 国際化ルーティング
+│   │   │   ├── page.tsx        # 多言語メインページ
+│   │   │   └── layout.tsx      # 多言語レイアウトコンポーネント
+│   │   ├── page.tsx            # ルートページリダイレクト
+│   │   ├── layout.tsx          # ルートレイアウトコンポーネント
+│   │   └── globals.css         # グローバルスタイル
 │   ├── components/
-│   │   ├── WindsurfInvoice.tsx  # Windsurf請求書コンポーネント
-│   │   └── CursorInvoice.tsx    # Cursor請求書コンポーネント
+│   │   ├── WindsurfInvoice.tsx # Windsurf請求書コンポーネント
+│   │   ├── CursorInvoice.tsx   # Cursor請求書コンポーネント
+│   │   └── LanguageSwitcher.tsx # 言語切替コンポーネント
+│   ├── i18n/
+│   │   ├── routing.ts          # 国際化ルーティング設定
+│   │   └── request.ts          # 国際化リクエスト設定
 │   ├── types/
-│   │   └── invoice.ts        # 型定義
+│   │   └── invoice.ts          # TypeScript型定義
 │   └── utils/
 │       └── invoiceGenerator.ts # 請求書データジェネレーター
+├── messages/                   # 国際化翻訳ファイル
+│   ├── zh.json                 # 中国語翻訳
+│   ├── en.json                 # 英語翻訳
+│   └── ja.json                 # 日本語翻訳
 ├── public/
-│   ├── windsurf-logo.png     # Windsurf ロゴ
-│   └── cursor-logo.png       # Cursor ロゴ
+│   ├── windsurf-logo.png       # Windsurf ロゴ
+│   └── cursor-logo.png         # Cursor ロゴ
+├── middleware.ts               # Next.js ミドルウェア
 ├── package.json
-├── next.config.js
+├── next.config.ts
 ├── vercel.json
 ├── tailwind.config.ts
 ├── tsconfig.json
-└── README.md
+├── README.md                   # 中国語ドキュメント
+├── README-EN.md                # 英語ドキュメント
+└── README-JA.md                # 日本語ドキュメント
 ```
 
 ## カスタム設定
