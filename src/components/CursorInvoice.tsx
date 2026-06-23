@@ -296,6 +296,7 @@ export default function CursorInvoice({ data }: CursorInvoiceProps) {
               <p>{data.billTo.city}</p>
               <p>{data.billTo.state}</p>
               <p>{data.billTo.country}</p>
+              {data.billTo.zipCode && <p>{data.billTo.zipCode}</p>}
               <p>{data.billTo.email}</p>
             </div>
           </div>

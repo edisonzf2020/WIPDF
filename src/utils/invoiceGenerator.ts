@@ -1,5 +1,13 @@
 import { InvoiceData, BillToInfo, InvoiceType, CompanyInfo } from '@/types/invoice';
 
+// 用户可选覆盖参数
+export interface GenerateOptions {
+  name?: string;
+  address?: string;
+  zipCode?: string;
+  paymentMethod?: string;
+}
+
 // 随机生成Invoice号码 (格式: 8位十六进制数字-000+1位随机数字)
 function generateInvoiceNumber(): string {
   const hexChars = '0123456789ABCDEF';
@@ -19,11 +27,11 @@ function generateReceiptNumber(): string {
 }
 
 // 随机生成支付方式
-function generatePaymentMethod(): string {
+function generatePaymentMethod(cardType?: string): string {
   const cardTypes = ['Visa', 'MasterCard', 'American Express', 'Discover'];
-  const randomCardType = cardTypes[Math.floor(Math.random() * cardTypes.length)];
+  const resolvedCardType = cardType || cardTypes[Math.floor(Math.random() * cardTypes.length)];
   const lastFourDigits = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
-  return `${randomCardType} - ${lastFourDigits}`;
+  return `${resolvedCardType} - ${lastFourDigits}`;
 }
 
 // 随机生成日期 (2025年4月17日至2025年6月16日)
@@ -41,8 +49,38 @@ function generateRandomDate(): string {
   });
 }
 
+
+// ponytail: naive comma-split address parser; upgrade to a geocoding API if real-world address accuracy matters.
+function parseAddress(raw: string): Pick<BillToInfo, 'address1' | 'address2' | 'city' | 'state' | 'country'> {
+  const parts = raw.split(',').map((part) => part.trim());
+
+  if (parts.length >= 5) {
+    return {
+      address1: parts.slice(0, -3).join(', '),
+      address2: '',
+      city: parts[parts.length - 3],
+      state: parts[parts.length - 2],
+      country: parts[parts.length - 1]
+    };
+  }
+
+  if (parts.length === 4) {
+    return { address1: parts[0], address2: '', city: parts[1], state: parts[2], country: parts[3] };
+  }
+
+  if (parts.length === 3) {
+    return { address1: parts[0], address2: '', city: parts[1], state: '', country: parts[2] };
+  }
+
+  if (parts.length === 2) {
+    return { address1: parts[0], address2: '', city: '', state: '', country: parts[1] };
+  }
+
+  return { address1: raw, address2: '', city: '', state: '', country: '' };
+}
+
 // 随机生成收票人信息
-function generateBillToInfo(email: string): BillToInfo {
+function generateBillToInfo(email: string, options: GenerateOptions = {}): BillToInfo {
   const names = [
     'ZHANG WEI', 'WANG MING', 'LI XIAOLI', 'CHEN ZHANGQI', 'ZHAO YIFAN',
     'JOHN SMITH', 'JANE DOE', 'MICHAEL BROWN', 'SARAH WILSON', 'DAVID JONES',
@@ -111,13 +149,23 @@ function generateBillToInfo(email: string): BillToInfo {
     'New Zealand', 'Ireland', 'Portugal', 'Greece', 'Poland'
   ];
 
+  if (options.address) {
+    return {
+      name: options.name || names[Math.floor(Math.random() * names.length)],
+      ...parseAddress(options.address),
+      zipCode: options.zipCode || undefined,
+      email: email
+    };
+  }
+
   return {
-    name: names[Math.floor(Math.random() * names.length)],
+    name: options.name || names[Math.floor(Math.random() * names.length)],
     address1: addresses1[Math.floor(Math.random() * addresses1.length)],
     address2: addresses2[Math.floor(Math.random() * addresses2.length)],
     city: cities[Math.floor(Math.random() * cities.length)],
     state: states[Math.floor(Math.random() * states.length)],
     country: countries[Math.floor(Math.random() * countries.length)],
+    zipCode: options.zipCode || undefined,
     email: email
   };
 }
@@ -183,12 +231,17 @@ function generateProductInfo(type: InvoiceType): { amount: string; description: 
 }
 
 // 主要的Invoice生成函数
-export function generateRandomInvoice(email: string, type: InvoiceType = InvoiceType.WINDSURF): InvoiceData {
+export function generateRandomInvoice(email: string, type: InvoiceType = InvoiceType.WINDSURF, options: GenerateOptions = {}): InvoiceData {
   const invoiceNumber = generateInvoiceNumber();
   const receiptNumber = generateReceiptNumber();
   const datePaid = generateRandomDate();
-  const paymentMethod = generatePaymentMethod();
-  const billTo = generateBillToInfo(email);
+  const knownCardTypes = ['Visa', 'MasterCard', 'American Express', 'Discover'];
+  const paymentMethod = options.paymentMethod
+    ? knownCardTypes.includes(options.paymentMethod)
+      ? generatePaymentMethod(options.paymentMethod)
+      : options.paymentMethod
+    : generatePaymentMethod();
+  const billTo = generateBillToInfo(email, options);
   const productInfo = generateProductInfo(type);
   const companyInfo = generateCompanyInfo(type);
   const dateRange = generateDateRange(datePaid);

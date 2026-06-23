@@ -19,6 +19,11 @@ export default function Home() {
   const [email, setEmail] = useState<string>('');
   const [emailError, setEmailError] = useState<string>('');
   const [invoiceType, setInvoiceType] = useState<InvoiceType>(InvoiceType.WINDSURF);
+  const [customerName, setCustomerName] = useState('');
+  const [customerAddress, setCustomerAddress] = useState('');
+  const [customerZipCode, setCustomerZipCode] = useState('');
+  const [paymentMethodSelection, setPaymentMethodSelection] = useState('');
+  const [customPaymentMethod, setCustomPaymentMethod] = useState('');
 
   /**
    * 验证邮箱格式
@@ -44,7 +49,16 @@ export default function Home() {
       return;
     }
 
-    const newInvoice = generateRandomInvoice(email.trim(), invoiceType);
+    const resolvedPaymentMethod = paymentMethodSelection === 'custom'
+      ? customPaymentMethod.trim() || undefined
+      : paymentMethodSelection || undefined;
+
+    const newInvoice = generateRandomInvoice(email.trim(), invoiceType, {
+      name: customerName.trim() || undefined,
+      address: customerAddress.trim() || undefined,
+      zipCode: customerZipCode.trim() || undefined,
+      paymentMethod: resolvedPaymentMethod,
+    });
     setInvoiceData(newInvoice);
   };
 
@@ -106,6 +120,80 @@ export default function Home() {
                 />
                 <span className="text-sm text-gray-700">{t('cursorInvoice')}</span>
               </label>
+            </div>
+          </div>
+
+          {/* 可选字段: 姓名、地址、邮编 */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+            <div>
+              <label htmlFor="customerName" className="block text-sm font-medium text-gray-700 mb-1">
+                {t('nameLabel')}
+              </label>
+              <input
+                type="text"
+                id="customerName"
+                value={customerName}
+                onChange={(e) => setCustomerName(e.target.value)}
+                placeholder={t('namePlaceholder')}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label htmlFor="customerAddress" className="block text-sm font-medium text-gray-700 mb-1">
+                {t('addressLabel')}
+              </label>
+              <input
+                type="text"
+                id="customerAddress"
+                value={customerAddress}
+                onChange={(e) => setCustomerAddress(e.target.value)}
+                placeholder={t('addressPlaceholder')}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div>
+              <label htmlFor="customerZipCode" className="block text-sm font-medium text-gray-700 mb-1">
+                {t('zipCodeLabel')}
+              </label>
+              <input
+                type="text"
+                id="customerZipCode"
+                value={customerZipCode}
+                onChange={(e) => setCustomerZipCode(e.target.value)}
+                placeholder={t('zipCodePlaceholder')}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+          </div>
+
+          {/* Payment Method 选择 */}
+          <div className="mb-4">
+            <label htmlFor="paymentMethod" className="block text-sm font-medium text-gray-700 mb-1">
+              {t('paymentMethodLabel')}
+            </label>
+            <div className="flex gap-4 items-start">
+              <select
+                id="paymentMethod"
+                value={paymentMethodSelection}
+                onChange={(e) => setPaymentMethodSelection(e.target.value)}
+                className="px-3 py-2 border border-gray-300 rounded-lg text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="">{t('paymentMethodRandom')}</option>
+                <option value="Visa">Visa</option>
+                <option value="MasterCard">MasterCard</option>
+                <option value="American Express">American Express</option>
+                <option value="Discover">Discover</option>
+                <option value="custom">{t('paymentMethodCustom')}</option>
+              </select>
+              {paymentMethodSelection === 'custom' && (
+                <input
+                  type="text"
+                  value={customPaymentMethod}
+                  onChange={(e) => setCustomPaymentMethod(e.target.value)}
+                  placeholder={t('customPaymentPlaceholder')}
+                  className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              )}
             </div>
           </div>
 
