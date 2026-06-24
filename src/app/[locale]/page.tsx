@@ -182,59 +182,59 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Payment Method 选择 */}
-          <div className="mb-4">
-            <label htmlFor="paymentMethod" className="block text-sm font-medium text-gray-700 mb-1">
-              {t('paymentMethodLabel')}
-            </label>
-            <div className="flex gap-4 items-start">
-              <select
-                id="paymentMethod"
-                value={paymentMethodSelection}
-                onChange={(e) => setPaymentMethodSelection(e.target.value)}
-                className="px-3 py-2 border border-gray-300 rounded-lg text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="">{t('paymentMethodRandom')}</option>
-                <option value="Visa">Visa</option>
-                <option value="MasterCard">MasterCard</option>
-                <option value="American Express">American Express</option>
-                <option value="Discover">Discover</option>
-                <option value="custom">{t('paymentMethodCustom')}</option>
-              </select>
-              {paymentMethodSelection === 'custom' && (
-                <input
-                  type="text"
-                  value={customPaymentMethod}
-                  onChange={(e) => setCustomPaymentMethod(e.target.value)}
-                  placeholder={t('customPaymentPlaceholder')}
-                  className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              )}
-            </div>
-          </div>
-
-          {/* Date Paid 选择 */}
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              {t('datePaidLabel')}
-            </label>
-            <div className="flex gap-4 items-start">
-              <select
-                value={datePaidSelection}
-                onChange={(e) => setDatePaidSelection(e.target.value)}
-                className="px-3 py-2 border border-gray-300 rounded-lg text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="random">{t('datePaidRandom')}</option>
-                <option value="custom">{t('datePaidCustom')}</option>
-              </select>
-              {datePaidSelection === 'custom' && (
-                <input
-                  type="date"
-                  value={customDatePaid}
-                  onChange={(e) => setCustomDatePaid(e.target.value)}
+          {/* Payment Method + Date Paid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
+            <div>
+              <label htmlFor="paymentMethod" className="block text-sm font-medium text-gray-700 mb-1">
+                {t('paymentMethodLabel')}
+              </label>
+              <div className="flex gap-3 items-start">
+                <select
+                  id="paymentMethod"
+                  value={paymentMethodSelection}
+                  onChange={(e) => setPaymentMethodSelection(e.target.value)}
                   className="px-3 py-2 border border-gray-300 rounded-lg text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              )}
+                >
+                  <option value="">{t('paymentMethodRandom')}</option>
+                  <option value="Visa">Visa</option>
+                  <option value="MasterCard">MasterCard</option>
+                  <option value="American Express">American Express</option>
+                  <option value="Discover">Discover</option>
+                  <option value="custom">{t('paymentMethodCustom')}</option>
+                </select>
+                {paymentMethodSelection === 'custom' && (
+                  <input
+                    type="text"
+                    value={customPaymentMethod}
+                    onChange={(e) => setCustomPaymentMethod(e.target.value)}
+                    placeholder={t('customPaymentPlaceholder')}
+                    className="w-full sm:w-48 px-3 py-2 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                )}
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                {t('datePaidLabel')}
+              </label>
+              <div className="flex gap-3 items-start">
+                <select
+                  value={datePaidSelection}
+                  onChange={(e) => setDatePaidSelection(e.target.value)}
+                  className="px-3 py-2 border border-gray-300 rounded-lg text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="random">{t('datePaidRandom')}</option>
+                  <option value="custom">{t('datePaidCustom')}</option>
+                </select>
+                {datePaidSelection === 'custom' && (
+                  <input
+                    type="date"
+                    value={customDatePaid}
+                    onChange={(e) => setCustomDatePaid(e.target.value)}
+                    className="px-3 py-2 border border-gray-300 rounded-lg text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                )}
+              </div>
             </div>
           </div>
 
