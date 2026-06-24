@@ -6,6 +6,7 @@ export interface GenerateOptions {
   address?: string;
   zipCode?: string;
   paymentMethod?: string;
+  datePaid?: string;
 }
 
 // 随机生成Invoice号码 (格式: 8位十六进制数字-000+1位随机数字)
@@ -34,14 +35,17 @@ function generatePaymentMethod(cardType?: string): string {
   return `${resolvedCardType} - ${lastFourDigits}`;
 }
 
-// 随机生成日期 (2025年4月17日至2025年6月16日)
+// 随机生成日期 (今天前60天到今天前15天)
 function generateRandomDate(): string {
-  const startDate = new Date('2025-04-17');
-  const endDate = new Date('2025-06-16');
+  const now = new Date();
+  const startDate = new Date(now);
+  startDate.setDate(now.getDate() - 60);
+  const endDate = new Date(now);
+  endDate.setDate(now.getDate() - 15);
   const timeDiff = endDate.getTime() - startDate.getTime();
   const randomTime = Math.random() * timeDiff;
   const randomDate = new Date(startDate.getTime() + randomTime);
-  
+
   return randomDate.toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
@@ -234,7 +238,7 @@ function generateProductInfo(type: InvoiceType): { amount: string; description: 
 export function generateRandomInvoice(email: string, type: InvoiceType = InvoiceType.WINDSURF, options: GenerateOptions = {}): InvoiceData {
   const invoiceNumber = generateInvoiceNumber();
   const receiptNumber = generateReceiptNumber();
-  const datePaid = generateRandomDate();
+  const datePaid = options.datePaid || generateRandomDate();
   const knownCardTypes = ['Visa', 'MasterCard', 'American Express', 'Discover'];
   const paymentMethod = options.paymentMethod
     ? knownCardTypes.includes(options.paymentMethod)

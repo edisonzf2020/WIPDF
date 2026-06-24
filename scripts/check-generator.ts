@@ -134,7 +134,7 @@ assert.equal(inv7.billTo.city, "Toronto");
 assert.equal(inv7.billTo.state, "");
 assert.equal(inv7.billTo.country, "Canada");
 
-// Case 8: Custom address — 2-part.
+// Case 8: Custom address — 2-part (street + country).
 const inv8 = generateRandomInvoice("addr3@test.com", InvoiceType.WINDSURF, {
 	address: "123 Main Street, United States",
 });
@@ -153,5 +153,41 @@ assert.equal(inv9.billTo.address2, "");
 assert.equal(inv9.billTo.city, "Manhattan");
 assert.equal(inv9.billTo.state, "NY");
 assert.equal(inv9.billTo.country, "United States");
+
+// Case 10: Custom datePaid passes through to invoice.
+const inv10 = generateRandomInvoice("date@test.com", InvoiceType.WINDSURF, {
+	datePaid: "June 1, 2026",
+});
+assert.equal(
+	inv10.datePaid,
+	"June 1, 2026",
+	"custom datePaid should pass through",
+);
+assert.ok(
+	inv10.dateRange.includes("Jun 1"),
+	`dateRange should be based on custom datePaid, got "${inv10.dateRange}"`,
+);
+
+// Case 11: Random datePaid falls within [today - 60d, today - 15d].
+// Run 20 times to reduce flakiness.
+const now = new Date();
+const earliest = new Date(now);
+earliest.setDate(now.getDate() - 60);
+earliest.setHours(0, 0, 0, 0);
+const latest = new Date(now);
+latest.setDate(now.getDate() - 15);
+latest.setHours(23, 59, 59, 999);
+for (let i = 0; i < 20; i++) {
+	const inv = generateRandomInvoice(`rand${i}@test.com`, InvoiceType.WINDSURF);
+	const parsed = new Date(inv.datePaid);
+	assert.ok(
+		!isNaN(parsed.getTime()),
+		`datePaid should be parseable, got "${inv.datePaid}"`,
+	);
+	assert.ok(
+		parsed >= earliest && parsed <= latest,
+		`random datePaid should be in [today-60d, today-15d], got "${inv.datePaid}" (parsed: ${parsed.toISOString()})`,
+	);
+}
 
 console.log("All checks passed.");

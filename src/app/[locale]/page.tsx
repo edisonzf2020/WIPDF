@@ -13,6 +13,15 @@ import LanguageSwitcher from '@/components/LanguageSwitcher';
 import { generateRandomInvoice } from '@/utils/invoiceGenerator';
 import { InvoiceData, InvoiceType } from '@/types/invoice';
 
+function formatDateForInvoice(isoDate: string): string {
+  const d = new Date(isoDate + 'T00:00:00');
+  return d.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+}
+
 export default function Home() {
   const t = useTranslations();
   const [invoiceData, setInvoiceData] = useState<InvoiceData | null>(null);
@@ -24,6 +33,8 @@ export default function Home() {
   const [customerZipCode, setCustomerZipCode] = useState('');
   const [paymentMethodSelection, setPaymentMethodSelection] = useState('');
   const [customPaymentMethod, setCustomPaymentMethod] = useState('');
+  const [datePaidSelection, setDatePaidSelection] = useState('random');
+  const [customDatePaid, setCustomDatePaid] = useState('');
 
   /**
    * 验证邮箱格式
@@ -53,11 +64,16 @@ export default function Home() {
       ? customPaymentMethod.trim() || undefined
       : paymentMethodSelection || undefined;
 
+    const resolvedDatePaid = datePaidSelection === 'custom' && customDatePaid
+      ? formatDateForInvoice(customDatePaid)
+      : undefined;
+
     const newInvoice = generateRandomInvoice(email.trim(), invoiceType, {
       name: customerName.trim() || undefined,
       address: customerAddress.trim() || undefined,
       zipCode: customerZipCode.trim() || undefined,
       paymentMethod: resolvedPaymentMethod,
+      datePaid: resolvedDatePaid,
     });
     setInvoiceData(newInvoice);
   };
@@ -192,6 +208,31 @@ export default function Home() {
                   onChange={(e) => setCustomPaymentMethod(e.target.value)}
                   placeholder={t('customPaymentPlaceholder')}
                   className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              )}
+            </div>
+          </div>
+
+          {/* Date Paid 选择 */}
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              {t('datePaidLabel')}
+            </label>
+            <div className="flex gap-4 items-start">
+              <select
+                value={datePaidSelection}
+                onChange={(e) => setDatePaidSelection(e.target.value)}
+                className="px-3 py-2 border border-gray-300 rounded-lg text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="random">{t('datePaidRandom')}</option>
+                <option value="custom">{t('datePaidCustom')}</option>
+              </select>
+              {datePaidSelection === 'custom' && (
+                <input
+                  type="date"
+                  value={customDatePaid}
+                  onChange={(e) => setCustomDatePaid(e.target.value)}
+                  className="px-3 py-2 border border-gray-300 rounded-lg text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               )}
             </div>
