@@ -35,6 +35,7 @@ export default function Home() {
   const [customPaymentMethod, setCustomPaymentMethod] = useState('');
   const [datePaidSelection, setDatePaidSelection] = useState('random');
   const [customDatePaid, setCustomDatePaid] = useState('');
+  const [customerPhone, setCustomerPhone] = useState('');
 
   /**
    * 验证邮箱格式
@@ -74,6 +75,7 @@ export default function Home() {
       zipCode: customerZipCode.trim() || undefined,
       paymentMethod: resolvedPaymentMethod,
       datePaid: resolvedDatePaid,
+      phone: customerPhone.trim() || undefined,
     });
     setInvoiceData(newInvoice);
   };
@@ -238,25 +240,40 @@ export default function Home() {
             </div>
           </div>
 
-          {/* 邮箱输入区域 */}
+          {/* 邮箱和电话输入区域 */}
           <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-end">
-            <div className="flex-1 max-w-md">
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                {t('emailLabel')} <span className="text-red-500">{t('emailRequired')}</span>
-              </label>
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder={t('emailPlaceholder')}
-                className={`w-full px-3 py-2 border rounded-lg text-gray-900 placeholder-gray-500 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  emailError ? 'border-red-500' : 'border-gray-300'
-                }`}
-              />
-              {emailError && (
-                <p className="mt-1 text-sm text-red-600">{emailError}</p>
-              )}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 flex-1 max-w-3xl">
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                  {t('emailLabel')} <span className="text-red-500">{t('emailRequired')}</span>
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder={t('emailPlaceholder')}
+                  className={`w-full px-3 py-2 border rounded-lg text-gray-900 placeholder-gray-500 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    emailError ? 'border-red-500' : 'border-gray-300'
+                  }`}
+                />
+                {emailError && (
+                  <p className="mt-1 text-sm text-red-600">{emailError}</p>
+                )}
+              </div>
+              <div>
+                <label htmlFor="customerPhone" className="block text-sm font-medium text-gray-700 mb-2">
+                  {t('phoneLabel')}
+                </label>
+                <input
+                  type="tel"
+                  id="customerPhone"
+                  value={customerPhone}
+                  onChange={(e) => setCustomerPhone(e.target.value)}
+                  placeholder={t('phonePlaceholder')}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
             </div>
             <button
               onClick={handleGenerateInvoice}

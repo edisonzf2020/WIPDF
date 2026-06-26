@@ -20,6 +20,8 @@
   "emailLabel": "Recipient Email Address",
   "emailRequired": "*",
   "emailPlaceholder": "Enter email address",
+  "phoneLabel": "Phone Number",
+  "phonePlaceholder": "Leave blank to omit",
   "generateButton": "Generate New Invoice",
   "printButton": "Print/Save PDF",
   "noInvoiceTitle": "No Invoice",

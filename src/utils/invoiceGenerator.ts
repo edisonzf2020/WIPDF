@@ -7,6 +7,7 @@ export interface GenerateOptions {
   zipCode?: string;
   paymentMethod?: string;
   datePaid?: string;
+  phone?: string;
 }
 
 // 随机生成Invoice号码 (格式: 8位十六进制数字-000+1位随机数字)
@@ -158,6 +159,7 @@ function generateBillToInfo(email: string, options: GenerateOptions = {}): BillT
       name: options.name || names[Math.floor(Math.random() * names.length)],
       ...parseAddress(options.address),
       zipCode: options.zipCode || undefined,
+      phone: options.phone || undefined,
       email: email
     };
   }
@@ -170,6 +172,7 @@ function generateBillToInfo(email: string, options: GenerateOptions = {}): BillT
     state: states[Math.floor(Math.random() * states.length)],
     country: countries[Math.floor(Math.random() * countries.length)],
     zipCode: options.zipCode || undefined,
+    phone: options.phone || undefined,
     email: email
   };
 }

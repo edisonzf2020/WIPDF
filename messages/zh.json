@@ -20,6 +20,8 @@
   "emailLabel": "收票人邮箱地址",
   "emailRequired": "*",
   "emailPlaceholder": "请输入邮箱地址",
+  "phoneLabel": "电话号码",
+  "phonePlaceholder": "留空则不显示",
   "generateButton": "生成新Invoice",
   "printButton": "打印/保存PDF",
   "noInvoiceTitle": "暂无Invoice",

@@ -190,4 +190,21 @@ for (let i = 0; i < 20; i++) {
 	);
 }
 
+// Case 12: Phone — provided, should pass through.
+const inv12 = generateRandomInvoice("phone@test.com", InvoiceType.WINDSURF, {
+	phone: "+1-516-555-0199",
+});
+assert.equal(
+	inv12.billTo.phone,
+	"+1-516-555-0199",
+	"phone should pass through when provided",
+);
+
+// Case 13: Phone — not provided, should be undefined.
+const inv13 = generateRandomInvoice("nophone@test.com", InvoiceType.WINDSURF);
+assert.equal(
+	inv13.billTo.phone,
+	undefined,
+	"phone should be undefined when not provided",
+);
 console.log("All checks passed.");

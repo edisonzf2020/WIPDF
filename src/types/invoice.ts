@@ -39,5 +39,6 @@ export interface BillToInfo {
   state: string;
   country: string;
   zipCode?: string;
+  phone?: string;
   email: string;
 }

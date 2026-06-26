@@ -298,6 +298,7 @@ export default function WindsurfInvoice({ data }: WindsurfInvoiceProps) {
             <div className="address">
               <p><b>Bill to</b></p>
               <p>{data.billTo.name}</p>
+              {data.billTo.phone && <p>{data.billTo.phone}</p>}
               <p>{data.billTo.address1}</p>
               <p>{data.billTo.address2}</p>
               <p>{data.billTo.city}</p>

@@ -20,6 +20,8 @@
   "emailLabel": "受取人メールアドレス",
   "emailRequired": "*",
   "emailPlaceholder": "メールアドレスを入力",
+  "phoneLabel": "電話番号",
+  "phonePlaceholder": "空欄の場合は表示しません",
   "generateButton": "新しい請求書を生成",
   "printButton": "印刷/PDF保存",
   "noInvoiceTitle": "請求書なし",
